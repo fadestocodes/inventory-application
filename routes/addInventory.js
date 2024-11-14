@@ -1,7 +1,8 @@
 const {Router} = require('express');
 const addInventoryRouter = Router();
-const {getAllProducts, getAllCategories, addProduct} = require('../db/queries');
+const {getAllProducts, getAllCategories, addProduct, addCategory} = require('../db/queries');
 const {body, validationResult} = require('express-validator');
+const pool = require('../db/pool');
 
 
 
@@ -10,6 +11,16 @@ const validateEntry = [
     body('productDescription').trim().optional(),
     body('productPrice').trim().isDecimal({decimal_digits: '2'}).withMessage('Price must be decimal with 2 decimal places.'),
     body('productStock').trim().isInt().withMessage('Must be a integer.'),
+];
+
+const validateAddCategory = [
+    body('categoryName').trim().isLength({min:1, max:100}).custom(async (value)=>{
+        const result = await pool.query(`SELECT * FROM categories WHERE name = $1`, [value]);
+        if (result.rows.length > 0){
+            throw new Error ('Product name must be unique');
+        }
+        return true;
+    })
 ];
 
 
@@ -25,7 +36,7 @@ addInventoryRouter.get('/product', async (req,res)=>{
 
 });
 
-addInventoryRouter.post('/', validateEntry, async (req, res)=>{
+addInventoryRouter.post('/product', validateEntry, async (req, res)=>{
 
     const errors = validationResult(req);
     if (!errors.isEmpty()){
@@ -44,5 +55,25 @@ addInventoryRouter.post('/', validateEntry, async (req, res)=>{
     res.redirect('/add');
 
 });
+
+addInventoryRouter.get('/category', (req,res)=>{
+    res.render('addCategory');
+})
+
+
+addInventoryRouter.post('/category',validateAddCategory , async (req, res) => {
+    
+    const errors = validationResult(req);
+    if (!errors.isEmpty()){
+        return res.status(400).json({errors: errors.array()});
+    }
+    
+    const categoryName = req.body.categoryName;
+    await addCategory(categoryName);
+    res.redirect('/add');
+
+} );
+
+
 
 module.exports = {addInventoryRouter};

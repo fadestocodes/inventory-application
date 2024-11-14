@@ -1,0 +1,7 @@
+<%-include ('partials/navbar') %>
+<h3>You're about to delete a <%=toDelete%>: </h3>
+<form action="/delete/confirm?to-delete=product&name=<%=productName%>&product-id=<%=productId%>" method="POST">
+    <label for="password">Enter Password To Delete</label>
+    <input type="text" name="password" id="password"  required>
+    <button type="submit">Confirm Delete</button>
+</form>

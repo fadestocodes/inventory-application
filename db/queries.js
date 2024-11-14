@@ -28,4 +28,13 @@ async function addProduct( name, description, price, stock, category ){
     await pool.query( `INSERT INTO products (name, description, price, stock, category_id) VALUES ($1, $2, $3, $4, $5)`, [name, description, price, stock, category] );
 }
 
-module.exports = { getAllCategories, getAllProducts, getAllCustomers, getAllOrders, getProductsFromCategory, addProduct  };
+async function addCategory (name){
+    await pool.query(` INSERT INTO categories (name) VALUES ($1) `, [name]);
+}
+
+async function deleteProduct(productId){
+    await pool.query(`DELETE FROM products WHERE product_id = $1`, [productId]);
+}
+
+
+module.exports = { getAllCategories, getAllProducts, getAllCustomers, getAllOrders, getProductsFromCategory, addProduct, addCategory, deleteProduct  };

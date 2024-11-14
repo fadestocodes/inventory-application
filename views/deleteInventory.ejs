@@ -1,0 +1,11 @@
+<%-include ('partials/navbar')%>
+<a href="/delete/product">Delete a Product</a>
+<a href="/delete/category">Delete a Category</a>
+<h2>Products</h2>
+<% for (const product of allProducts){ %>
+    <p><%=product.name%></p>
+<%}%>
+<h2>Categories</h2>
+<% for (const category of allCategories){ %>
+    <p><%=category.name%></p>
+<%}%>

@@ -9,11 +9,15 @@ const {indexRouter} = require('./routes/indexRouter');
 const {categoryRouter} = require('./routes/categoryRouter');
 const {productRouter} = require('./routes/productRouter');
 const {addInventoryRouter} = require('./routes/addInventory');
+const {deleteRouter} = require('./routes/deleteInventory');
+
 
 app.use('/', indexRouter);
 app.use('/category', categoryRouter);
 app.use('/product', productRouter);
 app.use('/add', addInventoryRouter);
+app.use('/delete', deleteRouter);
+
 
 const PORT = 3000;
 app.listen(PORT, ()=>{

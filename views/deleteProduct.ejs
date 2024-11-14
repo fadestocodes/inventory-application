@@ -1,0 +1,7 @@
+<%-include ('partials/navbar') %>
+
+<% for (const element of allProducts){ %>
+    <p><%=element.name%>
+            <a href="/delete/<%=element.name%>/<%=element.product_id%>">DELETE</a>
+    </p>
+<%}%>
