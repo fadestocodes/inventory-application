@@ -7,10 +7,13 @@ app.set('view engine', 'ejs');
 
 const {indexRouter} = require('./routes/indexRouter');
 const {categoryRouter} = require('./routes/categoryRouter');
-
+const {productRouter} = require('./routes/productRouter');
+const {addInventoryRouter} = require('./routes/addInventory');
 
 app.use('/', indexRouter);
 app.use('/category', categoryRouter);
+app.use('/product', productRouter);
+app.use('/add', addInventoryRouter);
 
 const PORT = 3000;
 app.listen(PORT, ()=>{

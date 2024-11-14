@@ -1,0 +1,18 @@
+<%-include('partials/navbar')%>
+<form action="/add" method="POST">
+    <label for="productName">Enter Product Name</label>
+    <input type="text" name="productName" id="productName" placeholder="Product Name" required>
+    <label for="productDescription">Product Description</label>
+    <input type="text" name="productDescription" id="productDescription" placeholder="Black hoodie">
+    <label for="productPrice">Enter Price</label>
+    <input type="number" name="productPrice" id="productPrice" placeholder="74.99" step="0.01" min="0" required>
+    <label for="productStock">Enter Quantity To Add</label>
+    <input type="number" name="productStock" id="productStock" placeholder="3" required>
+    <label for="category">Select Category</label>
+    <select name="category" id="category">
+        <% for (element of allCategories){ %>
+            <option value="<%=element.category_id%>"><%=element.name%></option>
+        <%}%>
+    </select>
+    <button type="submit">Add Product To Inventory</button>
+</form>

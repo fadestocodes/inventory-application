@@ -10,7 +10,10 @@ async function main(){
     console.log('seeding...');
 
     const client = new Client({
-        connectionString : process.env.DB_CONNECTION
+        connectionString : process.env.DB_CONNECTION,
+        ssl : {
+            rejectUnauthorized : false
+        }
     });
     try {
         await client.connect();
@@ -61,11 +64,11 @@ async function main(){
         const andrew = await client.query("SELECT customer_id FROM customers WHERE name = 'Andrew Jung'");
         const andrewId = andrew.rows[0].customer_id;
         const drew = await client.query("SELECT customer_id FROM customers WHERE name = 'Drew J'");
-        const drewId = andrew.rows[0].customer_id;
+        const drewId = drew.rows[0].customer_id;
         const cameras = await client.query("SELECT customer_id FROM customers WHERE name = 'Fadesto Cameras'");
-        const camerasId = andrew.rows[0].customer_id;
+        const camerasId = cameras.rows[0].customer_id;
         const codes = await client.query("SELECT customer_id FROM customers WHERE name = 'Fadesto Codes'");
-        const codesId = andrew.rows[0].customer_id;
+        const codesId = codes.rows[0].customer_id;
         
             
         await client.query(`

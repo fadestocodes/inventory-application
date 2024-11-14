@@ -6,6 +6,10 @@
     <title>Categories</title>
 </head>
 <body>
-    Categroies Page
+    <%- include('partials/navbar') %>
+    <h1>Categories</h1>
+    <% for (item of categories){ %>
+        <a href="/category/<%=item.name.toLowerCase()%>"><%=item.name%></a>
+    <%}%>
 </body>
 </html>
